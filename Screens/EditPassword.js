@@ -5,17 +5,45 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import {DatabaseConnection} from '../database-connection'
 
+const db=DatabaseConnection.getConnection()
 
-export default function AddNewPassword({navigation}) {
-
+export default function EditPassword({navigation}) {
+    let [inputUserId, setInputUserId] = useState('');
   const [web_nameP, setWeb_nameP] = useState('')
   const [usernameP, setUsernameP] = useState('')
   const [passwordP, setPasswordP] = useState('')
   
-  
-const db=DatabaseConnection.getConnection()
+  let updateAllStates = (name, contact, address) => {
+    setWeb_nameP(web_nameP);
+    setUsernameP(usernameP);
+    setPasswordP(passwordP);
+  };
 
-const addpassword=()=>{
+  let searchUser = () => {
+    console.log(inputUserId);
+    db.transaction((tx) => {
+      tx.executeSql(
+        'SELECT * FROM passwords_table where passwords_id = ?',
+        [inputUserId],
+        (tx, results) => {
+          var len = results.rows.length;
+          if (len > 0) {
+            let res = results.rows.item(0);
+            updateAllStates(
+              res.web_nameP,
+              res.usernameP,
+              res.passwordP
+            );
+          } else {
+            alert('failed error');
+            updateAllStates('', '', '');
+          }
+        }
+      );
+    });
+  };
+  
+const editpassword=()=>{
   db.transaction(function (tx) {
       tx.executeSql(
         'INSERT INTO passwords_table (web_nameP, usernameP, passwordP) VALUES (?,?,?)',
@@ -44,7 +72,7 @@ const addpassword=()=>{
   
   return (<View style={styles.myview}>
   <Text style={styles.heading}>Add New Password </Text>
-  <Text > </Text>
+  
    <TextInput style={styles.mytextinput}
   placeholder="Website/App name"
   value={web_nameP}
@@ -76,7 +104,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'indigo',
     fontWeight: '900',
-    
+    borderBottom: '2px grey solid',
 
   },
   myview:{

@@ -16,6 +16,7 @@ useEffect(() => {
       'SELECT * FROM passwords_table',
           [],
       (tx, results) => {
+        // console.log(results.rows[1])
         var temp = [];
         for (let i = 0; i < results.rows.length; ++i)
           temp.push(results.rows.item(i));
@@ -25,32 +26,22 @@ useEffect(() => {
   });
 }, []);
 
-/*
-let listItemView = (item) => {
-    return (
-      <View
-        key={item}
-        style={{ backgroundColor: '#EEE', marginTop: 20, padding: 30, borderRadius: 10 }}>
-       
-        <Text >item</Text>
-    <Text>name</Text>
-        <Text >itemh</Text>
-    <Text>contact</Text>
-        <Text>itemj</Text>
-        </View>
-)}*/
-
-console.log(flatListItems[0])
-alert(flatListItems[0])
+const DisplayData=flatListItems.map((item,index)=>{
+  console.log(item)
+  return (<View 
+    key={index}
+    style={styles.myview}>
+    <Text style={styles.mytext}>Website Name : {item.web_nameP}</Text>
+    <Text style={styles.mytext}>UserName : {item.usernameP}</Text>
+    <Text style={styles.mytext}>Password: {item.passwordP}</Text>
+    </View>)
+})
 
   return (<View>
   <Text style={styles.heading}>My Passwords</Text>
-  { /*
-   <Flatlist 
-   data={flatListItems}
-   keyExtractor={(item, index)=>index.toString()}
-   renderItem={({item})=>listItemView(item)}/>*/}
-   
+  <Text > </Text>
+  {DisplayData}
+  <Text > </Text>
    <Button title='add new password' onPress={()=>navigation.navigate ('add-new-password')}/>
    
   </View>)
@@ -62,11 +53,22 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'indigo',
     fontWeight: '900',
-    borderBottom: '2px grey solid',
+   
 
   },
   p: {
     padding: 10,
     fontSize: 10,
   },
+  myview:{
+    border:"2px solid pink",
+    padding:5,
+    margin:5,
+    backgroundColor:'pink'
+  },
+  mytext:{
+    
+    border:"1px solid grey",
+    
+  }
 })

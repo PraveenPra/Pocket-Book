@@ -28,11 +28,10 @@ export default function Homescreen({navigation}){
   
   return (<View>
   <Text style={styles.heading}>Home</Text>
-  
-   <Text style={styles.p}> Password one</Text>
-   
+  <Text > </Text>
    <Button title='My Passwords' onPress={()=>navigation.navigate('my-passwords')}/>
-   
+   <Text > </Text>
+   <Button title='My Notes' onPress={()=>navigation.navigate('my-passwords')}/>
   </View>)
 }
 
@@ -42,7 +41,7 @@ const styles=StyleSheet.create({
     fontSize:20,
     color:'indigo',
     fontWeight:'900',
-    borderBottom:'2px grey solid',
+    
     
   },
   p:{
