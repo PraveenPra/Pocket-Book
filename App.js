@@ -9,6 +9,7 @@ import Mypasswords from './Screens/Mypasswords'
 import Mynotes from './Screens/Mynotes';
 import Mydates from './Screens/Mydates';
 import EditPassword from './Screens/EditPassword';
+import DeletePassword from './Screens/DeletePassword';
 
 const Stack=createStackNavigator();
 
@@ -21,6 +22,7 @@ export default function App() {
   
   <Stack.Screen name='add-new-password' component={AddNewPassword}/>
   <Stack.Screen name='edit-password' component={EditPassword}/>
+  <Stack.Screen name='delete-password' component={DeletePassword}/>
    
   <Stack.Screen name='my-passwords' component={Mypasswords}/>
   <Stack.Screen name='my-notes' component={Mynotes}/>

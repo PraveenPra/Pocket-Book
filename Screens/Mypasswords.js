@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useEffect,useState} from 'react';
-import { StyleSheet, Flatlist,Text, View, Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import { StyleSheet,Text, View, Button } from 'react-native';
+// import { NavigationContainer } from '@react-navigation/native'
+// import { createStackNavigator } from '@react-navigation/stack'
 import {DatabaseConnection} from '../database-connection'
 
 const db=DatabaseConnection.getConnection();
@@ -31,6 +31,7 @@ const DisplayData=flatListItems.map((item,index)=>{
   return (<View 
     key={index}
     style={styles.myview}>
+    <Text style={styles.mytext}>Password ID : {item.passwords_id}</Text>
     <Text style={styles.mytext}>Website Name : {item.web_nameP}</Text>
     <Text style={styles.mytext}>UserName : {item.usernameP}</Text>
     <Text style={styles.mytext}>Password: {item.passwordP}</Text>
@@ -43,8 +44,12 @@ const DisplayData=flatListItems.map((item,index)=>{
   {DisplayData}
   <Text > </Text>
    <Button title='Add Password' onPress={()=>navigation.navigate ('add-new-password')}/>
+
    <Text > </Text>
    <Button title='Edit Password' onPress={()=>navigation.navigate ('edit-password')}/>
+
+   <Text > </Text>
+   <Button title='Delete Password' onPress={()=>navigation.navigate ('delete-password')}/>
   </View>)
 }
 

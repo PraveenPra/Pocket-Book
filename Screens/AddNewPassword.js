@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useState} from 'react';
-import { StyleSheet, Text, View ,TextInput,TouchableOpacity, Button,Pressable} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import { StyleSheet, Text, View ,TextInput, Button,Pressable} from 'react-native';
+// import { NavigationContainer } from '@react-navigation/native'
+// import { createStackNavigator } from '@react-navigation/stack'
 import {DatabaseConnection} from '../database-connection'
 
 
