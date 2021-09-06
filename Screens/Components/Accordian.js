@@ -54,20 +54,16 @@ const styles = StyleSheet.create({
         paddingLeft:25,
         paddingRight:18,
         alignItems:'center',
-        backgroundColor: 'indigo',
+        backgroundColor: '#FF6767',
         borderTopLeftRadius:5,
    borderTopRightRadius:5,
     },
     parentHr:{
         height:1,
         color: 'white',
-        width:'100%',
-        // border:"1px solid violet",
+      width:'100%',      
     },
-    child:{
-        // backgroundColor: 'C9CCD5',
-        // 
-        // border:"1px solid purple",
+    child:{    
         backgroundColor:'white'
     },
     childtxt:{

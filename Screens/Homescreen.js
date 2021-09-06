@@ -17,6 +17,7 @@ export default function Homescreen({navigation}){
         [],
         function(tx, res) {
           if (res.rows.length == 0) {
+            txn.executeSql('DROP TABLE IF EXISTS passwords_table', []);
             txn.executeSql(
               'CREATE TABLE IF NOT EXISTS passwords_table(passwords_id INTEGER PRIMARY KEY AUTOINCREMENT,web_nameP VARCHAR(255),usernameP VARCHAR(50),passwordP VARCHAR(255))',
     []);
