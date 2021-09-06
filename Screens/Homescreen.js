@@ -1,8 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useEffect} from 'react';
 import { StyleSheet, Text, View,Button } from 'react-native';
-// import { NavigationContainer } from '@react-navigation/native'
-// import { createStackNavigator } from '@react-navigation/stack'
+import Mybutton from './Components/Mybutton';
 import { DatabaseConnection } from '../database-connection';
 
 const db = DatabaseConnection.getConnection();
@@ -29,12 +28,17 @@ export default function Homescreen({navigation}){
   return (<View>
   <Text style={styles.heading}>Home</Text>
   <Text > </Text>
-   <Button title='My Passwords' onPress={()=>navigation.navigate('my-passwords')}/>
+   <Mybutton 
+   COLOR='blue' title='My Passwords' customClick={()=>navigation.navigate('my-passwords')}/>
    <Text > </Text>
-   <Button title='My Notes' onPress={()=>navigation.navigate('my-notes')}/>
+   <Mybutton 
+   COLOR='red'
+   title='My Notes' customClick={()=>navigation.navigate('my-notes')}/>
 
    <Text > </Text>
-   <Button title='My Dates' onPress={()=>navigation.navigate('my-dates')}/>
+   <Mybutton 
+   COLOR='green'
+   title='My Dates' customClick={()=>navigation.navigate('my-dates')}/>
   </View>)
 }
 

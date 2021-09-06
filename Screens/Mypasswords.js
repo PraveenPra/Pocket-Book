@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useEffect,useState} from 'react';
 import { StyleSheet,Text, View, Button } from 'react-native';
-// import { NavigationContainer } from '@react-navigation/native'
-// import { createStackNavigator } from '@react-navigation/stack'
+import Mybutton from './Components/Mybutton';
+import COLORS from './Constants';
+
 import {DatabaseConnection} from '../database-connection'
 
 const db=DatabaseConnection.getConnection();
@@ -30,9 +31,15 @@ const DisplayData=flatListItems.map((item,index)=>{
   console.log(item)
   return (<View 
     key={index}
-    style={styles.myview}>
-    <Text style={styles.mytext}>Password ID : {item.passwords_id}</Text>
-    <Text style={styles.mytext}>Website Name : {item.web_nameP}</Text>
+    style={styles.myview}
+    >
+
+   
+
+    <View style={styles.title}>
+    <Text style={styles.titletxt}> {item.passwords_id} : {item.web_nameP}</Text>
+    </View>
+    
     <Text style={styles.mytext}>UserName : {item.usernameP}</Text>
     <Text style={styles.mytext}>Password: {item.passwordP}</Text>
     </View>)
@@ -43,13 +50,19 @@ const DisplayData=flatListItems.map((item,index)=>{
   <Text > </Text>
   {DisplayData}
   <Text > </Text>
-   <Button title='Add Password' onPress={()=>navigation.navigate ('add-new-password')}/>
+   <Mybutton 
+   COLOR={COLORS.success}
+   title='Add Password' customClick={()=>navigation.navigate ('add-new-password')}/>
 
    <Text > </Text>
-   <Button title='Edit Password' onPress={()=>navigation.navigate ('edit-password')}/>
+   <Mybutton 
+   COLOR={COLORS.warn}
+   title='Edit Password' customClick={()=>navigation.navigate ('edit-password')}/>
 
    <Text > </Text>
-   <Button title='Delete Password' onPress={()=>navigation.navigate ('delete-password')}/>
+   <Mybutton 
+   COLOR={COLORS.danger}
+   title='Delete Password' customClick={()=>navigation.navigate ('delete-password')}/>
   </View>)
 }
 
@@ -67,14 +80,27 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   myview:{
-    border:"2px solid pink",
+    
     padding:5,
     margin:5,
-    backgroundColor:'pink'
+    
   },
   mytext:{
-    
+    padding:5,
     border:"1px solid grey",
+    fontWeight:500,
+  },
+  title:{
+    // flex:1,
+    // alignItems:'center',
+    backgroundColor:'purple',
+    padding:5,
+   borderTopLeftRadius:5,
+   borderTopRightRadius:5,
     
+  },
+  titletxt:{
+    color:'white',
+    fontWeight:600,
   }
 })

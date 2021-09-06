@@ -44,7 +44,7 @@ export default function DeletePassword({ navigation }) {
                 onChangeText={
                   (inputUserId) => setInputUserId(inputUserId)
                 }
-                style={{ padding: 10 }}
+                style={{ padding: 10,margin:5 }}
               />
               <Button title="Delete" onPress={deletepassword} />
             </View>
