@@ -29,7 +29,7 @@ export default function Homescreen({navigation}){
   <Text style={styles.heading}>Home</Text>
   <Text > </Text>
    <Mybutton 
-   COLOR='blue' title='My Passwords' customClick={()=>navigation.navigate('my-passwords')}/>
+    title='My Passwords' customClick={()=>navigation.navigate('my-passwords')}/>
    <Text > </Text>
    <Mybutton 
    COLOR='red'
