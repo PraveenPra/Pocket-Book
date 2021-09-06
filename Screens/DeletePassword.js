@@ -1,6 +1,9 @@
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import React,{useEffect,useState} from 'react';
+import React,{useEffect,useState,useLayoutEffect} from 'react';
 import { StyleSheet,Alert,TextInput,Text, View, Button,SafeAreaView } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
+
 import {DatabaseConnection} from '../database-connection'
 
 const db=DatabaseConnection.getConnection();
@@ -34,6 +37,16 @@ export default function DeletePassword({ navigation }) {
           );
         });
       };
+
+      //home button
+      useLayoutEffect(() => {
+        navigation.setOptions({
+          headerRight:()=>(<TouchableOpacity style={{marginRight:20}} 
+          onPress={()=>navigation.navigate('Home')}>
+            <FontAwesome name="home" size={24} color="black" />
+          </TouchableOpacity>)
+        })
+      }, [])
 
       return (
         <SafeAreaView style={{ flex: 1 }}>

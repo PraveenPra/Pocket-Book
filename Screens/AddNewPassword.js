@@ -1,8 +1,8 @@
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import React,{useState} from 'react';
+import React,{useState,useLayoutEffect} from 'react';
 import { StyleSheet, Text, View ,TextInput, Button,Pressable} from 'react-native';
-// import { NavigationContainer } from '@react-navigation/native'
-// import { createStackNavigator } from '@react-navigation/stack'
+import { FontAwesome } from '@expo/vector-icons';
 import {DatabaseConnection} from '../database-connection'
 
 
@@ -40,7 +40,15 @@ const addpassword=()=>{
     });
   }
   
-
+//home button
+useLayoutEffect(() => {
+  navigation.setOptions({
+    headerRight:()=>(<TouchableOpacity style={{marginRight:20}} 
+    onPress={()=>navigation.navigate('Home')}>
+      <FontAwesome name="home" size={24} color="black" />
+    </TouchableOpacity>)
+  })
+}, [])
   
   return (<View style={styles.myview}>
   <Text style={styles.heading}>Add New Password </Text>

@@ -16,11 +16,14 @@ const Stack=createStackNavigator();
 export default function App() {
   return (
   <NavigationContainer>
-  <Stack.Navigator>
+  <Stack.Navigator >
+  {/* //screenOptions={{headerShown: false}}
+  //make true if u want to see headers */}
+  
   
   <Stack.Screen name='Home' component={Homescreen}/>
   
-  <Stack.Screen name='add-new-password' component={AddNewPassword}/>
+  <Stack.Screen name='add-new-password' component={AddNewPassword}  />
   <Stack.Screen name='edit-password' component={EditPassword}/>
   <Stack.Screen name='delete-password' component={DeletePassword}/>
    

@@ -1,69 +1,86 @@
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import React,{useEffect,useState} from 'react';
-import { StyleSheet,Text, View, Button } from 'react-native';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
+import { StyleSheet, ScrollView, Text, View, Button, } from 'react-native';
 import Mybutton from './Components/Mybutton';
 import COLORS from './Constants';
+import { Ionicons, AntDesign, FontAwesome, } from '@expo/vector-icons';
+import Accordian from './Components/Accordian';
+// import Footer from './Components/Footer';
+import { DatabaseConnection } from '../database-connection'
 
-import {DatabaseConnection} from '../database-connection'
 
-const db=DatabaseConnection.getConnection();
+const db = DatabaseConnection.getConnection();
 
 export default function Mypasswords({ navigation }) {
-const [flatListItems,setFlatListItems]=useState([])
+  const [flatListItems, setFlatListItems] = useState([])
 
-useEffect(() => {
-  db.transaction((tx) => {
-    tx.executeSql(
-      'SELECT * FROM passwords_table',
-          [],
-      (tx, results) => {
-        // console.log(results.rows[1])
-        var temp = [];
-        for (let i = 0; i < results.rows.length; ++i)
-          temp.push(results.rows.item(i));
-        setFlatListItems(temp);
-      }
-    );
-  });
-}, []);
+  //fetch data from sqlite database
+  useEffect(() => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'SELECT * FROM passwords_table',
+        [],
+        (tx, results) => {
+          // console.log(results.rows[1])
+          var temp = [];
+          for (let i = 0; i < results.rows.length; ++i)
+            temp.push(results.rows.item(i));
+          setFlatListItems(temp);
+        }
+      );
+    });
+  }, []);
 
-const DisplayData=flatListItems.map((item,index)=>{
-  console.log(item)
-  return (<View 
-    key={index}
-    style={styles.myview}
-    >
-
-   
-
-    <View style={styles.title}>
-    <Text style={styles.titletxt}> {item.passwords_id} : {item.web_nameP}</Text>
-    </View>
-    
-    <Text style={styles.mytext}>UserName : {item.usernameP}</Text>
-    <Text style={styles.mytext}>Password: {item.passwordP}</Text>
+  //display the data fetched from database
+  const DisplayData = flatListItems.map((item, index) => {
+    console.log(item)
+    return (<View
+      key={index}
+      style={styles.myview} >
+      <Accordian
+        title={`${item.passwords_id} : ${item.web_nameP}`}
+        data={[item.usernameP, item.passwordP]}
+      />
     </View>)
-})
+  })
 
-  return (<View>
-  <Text style={styles.heading}>My Passwords</Text>
-  <Text > </Text>
-  {DisplayData}
-  <Text > </Text>
-   <Mybutton 
-   COLOR={COLORS.success}
-   title='Add Password' customClick={()=>navigation.navigate ('add-new-password')}/>
+  //home button
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (<TouchableOpacity style={{ marginRight: 20 }}
+        onPress={() => navigation.navigate('Home')}>
+        <FontAwesome name="home" size={24} color="black" />
+      </TouchableOpacity>)
+    })
+  }, [])
 
-   <Text > </Text>
-   <Mybutton 
-   COLOR={COLORS.warn}
-   title='Edit Password' customClick={()=>navigation.navigate ('edit-password')}/>
+  return (<>
+    <View style={{ flex: 1 }}>
+      <View style={{ flex: 0.9 }}>
 
-   <Text > </Text>
-   <Mybutton 
-   COLOR={COLORS.danger}
-   title='Delete Password' customClick={()=>navigation.navigate ('delete-password')}/>
-  </View>)
+        <Text style={styles.heading}>My Passwords</Text>
+
+        {DisplayData}
+      </View>
+      <View style={{ flex: 0.1 }}>
+        <View style={styles.actions}>
+          <Ionicons name="add-circle-outline" size={24} color="black"
+            onPress={() => navigation.navigate('add-new-password')}
+            style={styles.icons} />
+
+          <AntDesign name="edit" size={24} color="black"
+            onPress={() => navigation.navigate('edit-password')}
+            style={styles.icons} />
+
+          <AntDesign name="delete" size={24} color="black"
+            onPress={() => navigation.navigate('delete-password')}
+            style={styles.icons} />
+
+        </View>
+      </View>
+    </View>
+  </>)
 }
 
 const styles = StyleSheet.create({
@@ -72,35 +89,45 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'indigo',
     fontWeight: '900',
-   
+
 
   },
-  p: {
-    padding: 10,
-    fontSize: 10,
+  myview: {
+    padding: 5,
+    marginHorizontal: 5,
+    marginVertical: 0.1,
+
   },
-  myview:{
-    
-    padding:5,
-    margin:5,
-    
+  mytext: {
+    padding: 5,
+    border: "1px solid grey",
+    fontWeight: 500,
   },
-  mytext:{
-    padding:5,
-    border:"1px solid grey",
-    fontWeight:500,
+  title: {
+    backgroundColor: 'purple',
+    padding: 5,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+
   },
-  title:{
-    // flex:1,
-    // alignItems:'center',
-    backgroundColor:'purple',
-    padding:5,
-   borderTopLeftRadius:5,
-   borderTopRightRadius:5,
-    
+  titletxt: {
+    color: 'white',
+    fontWeight: 600,
   },
-  titletxt:{
-    color:'white',
-    fontWeight:600,
+  actions: {
+    backgroundColor: 'purple',
+    position: 'fixed', left: 0, right: 0, bottom: -10,
+    flex: 0.1,
+    height: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+
+  },
+  icons: {
+    fontWeight: 600,
+    color: 'white',
+    fontSize: 20,
+    marginBottom: 8,
   }
 })

@@ -3,6 +3,7 @@ import React,{useEffect} from 'react';
 import { StyleSheet, Text, View,Button } from 'react-native';
 import Mybutton from './Components/Mybutton';
 import { DatabaseConnection } from '../database-connection';
+import Accordian from './Components/Accordian';
 
 const db = DatabaseConnection.getConnection();
 
@@ -28,6 +29,10 @@ export default function Homescreen({navigation}){
   return (<View>
   <Text style={styles.heading}>Home</Text>
   <Text > </Text>
+  {/* <Accordian 
+  title="are"
+  data="dfuhiudhfiduu"
+  /> */}
    <Mybutton 
     title='My Passwords' customClick={()=>navigation.navigate('my-passwords')}/>
    <Text > </Text>

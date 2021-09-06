@@ -1,8 +1,10 @@
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import React,{useEffect,useState} from 'react';
+import React,{useEffect,useState,useLayoutEffect} from 'react';
 import { StyleSheet, Flatlist,Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { FontAwesome } from '@expo/vector-icons';
 import {DatabaseConnection} from '../database-connection'
 
 const db=DatabaseConnection.getConnection();
@@ -36,6 +38,16 @@ const DisplayData=flatListItems.map((item,index)=>{
     <Text style={styles.mytext}>Password: {item.passwordP}</Text>
     </View>)
 })
+
+//home button
+useLayoutEffect(() => {
+  navigation.setOptions({
+    headerRight:()=>(<TouchableOpacity style={{marginRight:20}} 
+    onPress={()=>navigation.navigate('Home')}>
+      <FontAwesome name="home" size={24} color="black" />
+    </TouchableOpacity>)
+  })
+}, [])
 
   return (<View>
   <Text style={styles.heading}>My Notes</Text>
