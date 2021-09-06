@@ -31,7 +31,10 @@ export default function Homescreen({navigation}){
   <Text > </Text>
    <Button title='My Passwords' onPress={()=>navigation.navigate('my-passwords')}/>
    <Text > </Text>
-   <Button title='My Notes' onPress={()=>navigation.navigate('my-passwords')}/>
+   <Button title='My Notes' onPress={()=>navigation.navigate('my-notes')}/>
+
+   <Text > </Text>
+   <Button title='My Dates' onPress={()=>navigation.navigate('my-dates')}/>
   </View>)
 }
 

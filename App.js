@@ -6,6 +6,9 @@ import {createStackNavigator} from '@react-navigation/stack'
 import Homescreen from './Screens/Homescreen'
 import AddNewPassword from './Screens/AddNewPassword'
 import Mypasswords from './Screens/Mypasswords'
+import Mynotes from './Screens/Mynotes';
+import Mydates from './Screens/Mydates';
+import EditPassword from './Screens/EditPassword';
 
 const Stack=createStackNavigator();
 
@@ -17,9 +20,11 @@ export default function App() {
   <Stack.Screen name='Home' component={Homescreen}/>
   
   <Stack.Screen name='add-new-password' component={AddNewPassword}/>
-  
+  <Stack.Screen name='edit-password' component={EditPassword}/>
    
   <Stack.Screen name='my-passwords' component={Mypasswords}/>
+  <Stack.Screen name='my-notes' component={Mynotes}/>
+  <Stack.Screen name='my-dates' component={Mydates}/>
   
   </Stack.Navigator>
   </NavigationContainer>

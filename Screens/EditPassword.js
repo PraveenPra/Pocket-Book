@@ -27,6 +27,7 @@ export default function EditPassword({navigation}) {
         [inputUserId],
         (tx, results) => {
           var len = results.rows.length;
+          console.log(results.rows)
           if (len > 0) {
             let res = results.rows.item(0);
             updateAllStates(
@@ -42,17 +43,17 @@ export default function EditPassword({navigation}) {
       );
     });
   };
-  
-const editpassword=()=>{
-  db.transaction(function (tx) {
+
+const updatepassword=()=>{
+  db.transaction(function(tx) {
       tx.executeSql(
-        'INSERT INTO passwords_table (web_nameP, usernameP, passwordP) VALUES (?,?,?)',
-        [web_nameP,usernameP, passwordP],
+        'UPDATE passwords_table set web_nameP=?, usernameP=?, passwordP=? where passwords_id=?',
+        [web_nameP,usernameP, passwordP,inputUserId],
         (tx, results) => {
           console.log('Results', results.rowsAffected);
           if (results.rowsAffected > 0) {
             alert(
-              'Saved!!!'
+              'Updated!!!'
               /*,[
                 {
                   text: 'bekey',
@@ -73,16 +74,27 @@ const editpassword=()=>{
   return (<View style={styles.myview}>
   <Text style={styles.heading}>Add New Password </Text>
   
+  <TextInput style={styles.mytextinput}
+  placeholder="search"
+//   value={web_nameP}
+  onChangeText={(inputUserId)=>setInputUserId(inputUserId)}
+   /> 
+
+<Button
+title="search"
+onPress={searchUser}
+/>
+
    <TextInput style={styles.mytextinput}
   placeholder="Website/App name"
   value={web_nameP}
-  onChangeText={(text)=>setWeb_nameP(text)}
+  onChangeText={(web_nameP)=>setWeb_nameP(web_nameP)}
    /> 
    
     <TextInput style={styles.mytextinput}
   placeholder="Username"
   value={usernameP}
-  onChangeText={(text)=>setUsernameP(text)}
+  onChangeText={(usernameP)=>setUsernameP(usernameP)}
    /> 
    
     <TextInput style={styles.mytextinput}
@@ -91,8 +103,8 @@ const editpassword=()=>{
   onChangeText={(text)=>setPasswordP(text)}
    /> 
    
-   <Button title='Save' style={styles.mybutton}
-   onPress={()=>addpassword()}
+   <Button title='Update' style={styles.mybutton}
+   onPress={()=>updatepassword()}
    />
  
   </View>)

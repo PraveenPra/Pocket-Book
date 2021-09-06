@@ -7,7 +7,7 @@ import {DatabaseConnection} from '../database-connection'
 
 const db=DatabaseConnection.getConnection();
 
-export default function Mypasswords({ navigation }) {
+export default function Mydates({ navigation }) {
 const [flatListItems,setFlatListItems]=useState([])
 
 useEffect(() => {
@@ -38,13 +38,12 @@ const DisplayData=flatListItems.map((item,index)=>{
 })
 
   return (<View>
-  <Text style={styles.heading}>My Passwords</Text>
+  <Text style={styles.heading}>My Dates</Text>
   <Text > </Text>
   {DisplayData}
   <Text > </Text>
-   <Button title='Add Password' onPress={()=>navigation.navigate ('add-new-password')}/>
-   <Text > </Text>
-   <Button title='Edit Password' onPress={()=>navigation.navigate ('edit-password')}/>
+   <Button title='Add Dates' onPress={()=>navigation.navigate ('add-new-password')}/>
+   
   </View>)
 }
 
