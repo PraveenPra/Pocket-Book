@@ -1,7 +1,7 @@
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState, useLayoutEffect } from 'react';
-import { StyleSheet, ScrollView, Text, View, Button, } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, Button, Alert} from 'react-native';
 import Mybutton from './Components/Mybutton';
 import COLORS from './Constants';
 import { Ionicons, AntDesign, FontAwesome, } from '@expo/vector-icons';
@@ -55,6 +55,30 @@ export default function Mypasswords({ navigation }) {
     })
   }, [])
 
+  //clear all
+  let clearall = () => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'DROP TABLE passwords_table;', [],
+        (tx, results) => {
+          if (results && results.rows && results.rows._array) {
+            /* do something with the items */
+            // results.rows._array holds all the results.
+            console.log(JSON.stringify(results.rows._array));
+            console.log('table dropped')
+           
+          } else {
+            console.log('no results')
+            return navigation.navigate('Home')
+          }
+        },
+        (tx, error) => {
+          console.log(error);
+        }
+      )
+    });
+  };
+
   return (<>
     <View style={{ flex: 1 }}>
       <View style={{ flex: 0.9 }}>
@@ -62,6 +86,7 @@ export default function Mypasswords({ navigation }) {
         <Text style={styles.heading}>My Passwords</Text>
 
         {DisplayData}
+        <Button title="Clear All" onPress={()=>clearall()}/>
       </View>
       <View style={{ flex: 0.1 }}>
         <View style={styles.actions}>

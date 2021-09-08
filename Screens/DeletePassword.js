@@ -21,13 +21,6 @@ export default function DeletePassword({ navigation }) {
               if (results.rowsAffected > 0) {
                 Alert.alert(
                   'Deleted Sucessfully',                 
-                //   [
-                //     {
-                //       text: 'Ok',
-                //       onPress: () => navigation.navigate('HomeScreen'),
-                //     },
-                //   ],
-                //   { cancelable: false }
                 );
                 return  navigation.replace('my-passwords')
             } else {

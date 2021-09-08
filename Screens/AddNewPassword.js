@@ -18,6 +18,7 @@ const db=DatabaseConnection.getConnection()
 const addpassword=()=>{
   db.transaction(function (tx) {
       tx.executeSql(
+        
         'INSERT INTO passwords_table (web_nameP, usernameP, passwordP) VALUES (?,?,?)',
         [web_nameP,usernameP, passwordP],
         (tx, results) => {
