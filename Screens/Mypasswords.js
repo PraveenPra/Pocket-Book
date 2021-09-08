@@ -68,7 +68,8 @@ export default function Mypasswords({ navigation }) {
             console.log('table dropped')
            
           } else {
-            console.log('no results')
+            // console.log('no results')
+            console.log('Cleared All')
             return navigation.navigate('Home')
           }
         },

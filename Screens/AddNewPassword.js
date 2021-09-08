@@ -1,6 +1,6 @@
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import React,{useState,useLayoutEffect} from 'react';
+import React,{useState,useLayoutEffect,useEffect} from 'react';
 import { StyleSheet, Text, View ,TextInput, Button,Pressable} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import {DatabaseConnection} from '../database-connection'
@@ -14,6 +14,22 @@ export default function AddNewPassword({navigation}) {
   
   
 const db=DatabaseConnection.getConnection()
+
+ 
+useEffect(() => {
+  db.transaction(function(txn) {
+    txn.executeSql(
+      "SELECT name FROM sqlite_master WHERE type='table' AND name='passwords_table'",
+      [],
+      function(tx, res) {
+        if (res.rows.length == 0) {
+          txn.executeSql(
+            'CREATE TABLE IF NOT EXISTS passwords_table(passwords_id INTEGER PRIMARY KEY AUTOINCREMENT,web_nameP VARCHAR(255),usernameP VARCHAR(50),passwordP VARCHAR(255))',
+  []);
+       }
+      });
+  });
+}, []);
 
 const addpassword=()=>{
   db.transaction(function (tx) {
