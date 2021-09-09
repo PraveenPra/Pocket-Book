@@ -13,27 +13,29 @@ const Stack=createStackNavigator();
 
 export default function App() {
   return (
-  <NavigationContainer>
+  <NavigationContainer  >
+    
   <Stack.Navigator >
   {/* //screenOptions={{headerShown: false}}
   //make true if u want to see headers */}
+ 
   
-  
-  <Stack.Screen name='Home' component={Homescreen}/>
+  <Stack.Screen name='Home' component={Homescreen} />
   <Stack.Screen name='my-passwords' component={Mypasswords}/>
   <Stack.Screen name='add-new-password' component={AddNewPassword}  />
   <Stack.Screen name='edit-password' component={EditPassword}/>
-  
-  </Stack.Navigator>
+ 
+  </Stack.Navigator> 
   </NavigationContainer>
+ 
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#94cdff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });

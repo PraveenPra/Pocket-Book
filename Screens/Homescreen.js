@@ -7,9 +7,12 @@ import Accordian from './Components/Accordian';
 
 const db = DatabaseConnection.getConnection();
 
+const BG = '#94cdff';
+const BGL = "#c2ffff";
+const BGD = "#668db0";
 
 export default function Homescreen({navigation}){
-  
+  const RADIUS = 10;
   useEffect(() => {
     db.transaction(function(txn) {
       txn.executeSql(
@@ -27,28 +30,66 @@ export default function Homescreen({navigation}){
   
   }, []);
   
-  return (<View>
+  return (<View style={styles.page}>
   <Text style={styles.heading}>Home</Text>
+
   <Text > </Text>
- 
+
+  <View style={[styles.morphTop,{borderRadius: RADIUS}]}>
+            <View style={[styles.morphBottom,{borderRadius: RADIUS}]}>
+                {/* <View style={[styles.morph,{borderRadius: RADIUS}]}> */}
    <Mybutton 
-    title='My Passwords' customClick={()=>navigation.navigate('my-passwords')}/>
+    title='My Passwords' COLOR='#94cdff' customClick={()=>navigation.navigate('my-passwords')}/>
+   {/* </View> */}
+   </View>
+   </View>
+   
    <Text > </Text>
    
   </View>)
 }
 
 const styles=StyleSheet.create({
+  page:{
+    backgroundColor: '#94cdff',
+    flex:1,
+    alignItems:"center",
+    // justifyContent:"center",
+  },
   heading: {
     textAlign:'center',
     fontSize:20,
     color:'indigo',
-    fontWeight:'900',
-    
-    
+    fontWeight:'900',  
   },
   p:{
     padding:10,
     fontSize:10,
   },
+    // morph
+    morph: {
+      border:'1px solid #FFE8E8',
+  },
+  morphTop: {
+    width:300,
+      shadowOffset: {
+          width: -5,
+          height: -5,
+      },
+      shadowOpacity: 1,
+      shadowRadius: 5,
+      shadowColor: BGL,
+  },
+
+  morphBottom: {
+    width:300,
+      shadowOffset: {
+          width: 5,
+          height: 5,
+      },
+      shadowOpacity: 0.2,
+      shadowRadius: 5,
+      shadowColor: BGD,
+      // borderWidth:1
+  }
 })

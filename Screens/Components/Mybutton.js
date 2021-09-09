@@ -9,10 +9,12 @@ const Mybutton = (props) => {
         backgroundColor: props.COLOR||COLORS.default,
         alignItems: 'center',
         color: '#ffffff',
+        // width:10,
         padding: 10,
         marginTop: 16,
         marginLeft: 45,
         marginRight: 45,
+        marginBottom:16,
         borderRadius: 5,
     }}
     //   style={styles.button}
