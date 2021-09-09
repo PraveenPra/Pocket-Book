@@ -1,13 +1,17 @@
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import React,{useState,useLayoutEffect} from 'react';
+import React,{useState,useLayoutEffect,useEffect} from 'react';
 import { StyleSheet, Text, View ,TextInput, Button,} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import {DatabaseConnection} from '../database-connection'
 
 const db=DatabaseConnection.getConnection()
 
-export default function EditPassword({navigation}) {
+export default function EditPassword({route,navigation}) {
+
+  const { id } = route.params;
+  // console.log(id)
+
     let [inputUserId, setInputUserId] = useState('');
   const [web_nameP, setWeb_nameP] = useState('')
   const [usernameP, setUsernameP] = useState('')
@@ -19,30 +23,54 @@ export default function EditPassword({navigation}) {
     setPasswordP(passwordP);
   };
 
-  let searchUser = () => {
-    console.log(inputUserId);
+  useEffect(() => {
     db.transaction((tx) => {
       tx.executeSql(
         'SELECT * FROM passwords_table where passwords_id = ?',
-        [inputUserId],
+        [id],
         (tx, results) => {
-          var len = results.rows.length;
-          console.log(results.rows)
-          if (len > 0) {
-            let res = results.rows.item(0);
-            updateAllStates(
-              res.web_nameP,
-              res.usernameP,
-              res.passwordP
-            );
-          } else {
-            alert('failed error');
-            updateAllStates('', '', '');
-          }
-        }
-      );
+                  var len = results.rows.length;
+                  console.log(results.rows)
+                  if (len > 0) {
+                    let res = results.rows.item(0);
+                    updateAllStates(
+                      res.web_nameP,
+                      res.usernameP,
+                      res.passwordP
+                    );
+                  } else {
+                    alert('failed error');
+                    updateAllStates('', '', '');
+                  }
+                })
     });
-  };
+  }, []);
+  // let searchUser = () => {
+  //   console.log(inputUserId);
+  //   db.transaction((tx) => {
+  //     tx.executeSql(
+  //       'SELECT * FROM passwords_table where passwords_id = ?',
+  //       [inputUserId],
+  //       //lets get id from selection instead of searching
+  //       // [id],
+  //       (tx, results) => {
+  //         var len = results.rows.length;
+  //         console.log(results.rows)
+  //         if (len > 0) {
+  //           let res = results.rows.item(0);
+  //           updateAllStates(
+  //             res.web_nameP,
+  //             res.usernameP,
+  //             res.passwordP
+  //           );
+  //         } else {
+  //           alert('failed error');
+  //           updateAllStates('', '', '');
+  //         }
+  //       }
+  //     );
+  //   });
+  // };
 
 const updatepassword=()=>{
   db.transaction(function(tx) {
@@ -80,18 +108,18 @@ useLayoutEffect(() => {
   }, [])
   
   return (<View style={styles.myview}>
-  <Text style={styles.heading}>Add New Password </Text>
+  <Text style={styles.heading}>Edit Password </Text>
   
   <TextInput style={styles.mytextinput}
   placeholder="search"
 //   value={web_nameP}
   onChangeText={(inputUserId)=>setInputUserId(inputUserId)}
    /> 
-
+{/* 
 <Button
 title="search"
 onPress={searchUser}
-/>
+/> */}
 
    <TextInput style={styles.mytextinput}
   placeholder="Website/App name"

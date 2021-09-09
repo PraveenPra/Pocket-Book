@@ -1,11 +1,12 @@
 import React, {Component,useState} from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, LayoutAnimation, Platform, UIManager} from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { Ionicons, AntDesign, FontAwesome, } from '@expo/vector-icons';
 
-export default function Accordian(props){
+export default function Accordian({itemid, listdata,title,onChildClick}){
 
     const [expanded,setExpanded]=useState(false)
-    const [data,setData]=useState(props.data)
+    const [data,setData]=useState(listdata)
     
 
         // if (Platform.OS === 'android') {
@@ -23,8 +24,14 @@ export default function Accordian(props){
     return (
        <View>
             <TouchableOpacity style={styles.row} onPress={()=>toggleExpand()}>
-                <Text style={[styles.title, styles.font]}>{props.title}</Text>
+                <Text style={[styles.title, styles.font]}>{title}</Text>
+
+                <AntDesign name="edit" size={24} color="black"
+            onPress={()=>onChildClick(itemid)}
+            style={styles.icons} />
+
                 <Icon name={expanded ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} size={30} color={'white'} />
+
             </TouchableOpacity>
             <View style={styles.parentHr}/>
             {

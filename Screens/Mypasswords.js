@@ -13,7 +13,18 @@ import { DatabaseConnection } from '../database-connection'
 const db = DatabaseConnection.getConnection();
 
 export default function Mypasswords({ navigation }) {
+
   const [flatListItems, setFlatListItems] = useState([])
+
+   //home button
+   useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (<TouchableOpacity style={{ marginRight: 20 }}
+        onPress={() => navigation.navigate('Home')}>
+        <FontAwesome name="home" size={24} color="black" />
+      </TouchableOpacity>)
+    })
+  }, [])
 
   //fetch data from sqlite database
   useEffect(() => {
@@ -32,6 +43,11 @@ export default function Mypasswords({ navigation }) {
     });
   }, []);
 
+  function clickAlert(selectedID){
+    // alert("I am working")
+    console.log(selectedID)
+    navigation.navigate('edit-password',{id:selectedID})
+}
   //display the data fetched from database
   const DisplayData = flatListItems.map((item, index) => {
     console.log(item)
@@ -39,21 +55,15 @@ export default function Mypasswords({ navigation }) {
       key={index}
       style={styles.myview} >
       <Accordian
+      itemid={item.passwords_id}
         title={`${item.passwords_id} : ${item.web_nameP}`}
-        data={[item.usernameP, item.passwordP]}
+        listdata={[item.usernameP, item.passwordP]}
+        onChildClick={clickAlert}
       />
     </View>)
   })
 
-  //home button
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (<TouchableOpacity style={{ marginRight: 20 }}
-        onPress={() => navigation.navigate('Home')}>
-        <FontAwesome name="home" size={24} color="black" />
-      </TouchableOpacity>)
-    })
-  }, [])
+ 
 
   //clear all
   let clearall = () => {
@@ -87,6 +97,7 @@ export default function Mypasswords({ navigation }) {
         <Text style={styles.heading}>My Passwords</Text>
 
         {DisplayData}
+
         <Button title="Clear All" onPress={()=>clearall()}/>
       </View>
       <View style={{ flex: 0.1 }}>
@@ -96,7 +107,7 @@ export default function Mypasswords({ navigation }) {
             style={styles.icons} />
 
           <AntDesign name="edit" size={24} color="black"
-            onPress={() => navigation.navigate('edit-password')}
+            onPress={() => navigation.navigate('edit-password',{id:2})}
             style={styles.icons} />
 
           <AntDesign name="delete" size={24} color="black"
