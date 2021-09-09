@@ -30,21 +30,11 @@ export default function Homescreen({navigation}){
   return (<View>
   <Text style={styles.heading}>Home</Text>
   <Text > </Text>
-  {/* <Accordian 
-  title="are"
-  data="dfuhiudhfiduu"
-  /> */}
+ 
    <Mybutton 
     title='My Passwords' customClick={()=>navigation.navigate('my-passwords')}/>
    <Text > </Text>
-   <Mybutton 
-   COLOR='red'
-   title='My Notes' customClick={()=>navigation.navigate('my-notes')}/>
-
-   <Text > </Text>
-   <Mybutton 
-   COLOR='green'
-   title='My Dates' customClick={()=>navigation.navigate('my-dates')}/>
+   
   </View>)
 }
 
