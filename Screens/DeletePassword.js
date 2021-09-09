@@ -8,14 +8,16 @@ import {DatabaseConnection} from '../database-connection'
 
 const db=DatabaseConnection.getConnection();
 
-export default function DeletePassword({ navigation }) {
+export default function DeletePassword({route, navigation }) {
+
+  const { id } = route.params;
     let [inputUserId, setInputUserId] = useState('');
 
     let deletepassword = () => {
         db.transaction((tx) => {
           tx.executeSql(
             'DELETE FROM  passwords_table where passwords_id=?',
-            [inputUserId],
+            [id],
             (tx, results) => {
               console.log('Results', results.rowsAffected);
               if (results.rowsAffected > 0) {

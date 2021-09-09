@@ -1,7 +1,7 @@
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React,{useState,useLayoutEffect,useEffect} from 'react';
-import { StyleSheet, Text, View ,TextInput, Button,Pressable} from 'react-native';
+import { StyleSheet, Text, View ,TextInput, Button, Alert,AppRegistry} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import {DatabaseConnection} from '../database-connection'
 
@@ -50,6 +50,10 @@ const addpassword=()=>{
               ],
               { cancelable: true }*/
             );
+             
+              
+      
+          
           return  navigation.replace('my-passwords')
           } else alert('Failed to save !!!');
         }

@@ -1,12 +1,11 @@
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState, useLayoutEffect } from 'react';
-import { StyleSheet, ScrollView, Text, View, Button, Alert} from 'react-native';
+import { StyleSheet, ScrollView, Text, View, Button, Alert, AppRegistry } from 'react-native';
 import Mybutton from './Components/Mybutton';
 import COLORS from './Constants';
 import { Ionicons, AntDesign, FontAwesome, } from '@expo/vector-icons';
 import Accordian from './Components/Accordian';
-// import Footer from './Components/Footer';
 import { DatabaseConnection } from '../database-connection'
 
 
@@ -16,8 +15,10 @@ export default function Mypasswords({ navigation }) {
 
   const [flatListItems, setFlatListItems] = useState([])
 
-   //home button
-   useLayoutEffect(() => {
+
+
+  //home button
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (<TouchableOpacity style={{ marginRight: 20 }}
         onPress={() => navigation.navigate('Home')}>
@@ -33,7 +34,6 @@ export default function Mypasswords({ navigation }) {
         'SELECT * FROM passwords_table',
         [],
         (tx, results) => {
-          // console.log(results.rows[1])
           var temp = [];
           for (let i = 0; i < results.rows.length; ++i)
             temp.push(results.rows.item(i));
@@ -43,11 +43,30 @@ export default function Mypasswords({ navigation }) {
     });
   }, []);
 
-  function clickAlert(selectedID){
-    // alert("I am working")
+  function clickEdit(selectedID) {
+    navigation.navigate('edit-password', { id: selectedID })
+  }
+  function clickDelete(selectedID) {
     console.log(selectedID)
-    navigation.navigate('edit-password',{id:selectedID})
-}
+    db.transaction((tx) => {
+      tx.executeSql(
+        'DELETE FROM  passwords_table where passwords_id=?',
+        [selectedID],
+        (tx, results) => {
+          console.log('Results', results.rowsAffected);
+          if (results.rowsAffected > 0) {
+            Alert.alert(
+              'Deleted Sucessfully',
+            );
+            return navigation.replace('my-passwords')
+          } else {
+            alert('Failed to Delete !!!');
+          }
+        }
+      );
+    });
+  }
+
   //display the data fetched from database
   const DisplayData = flatListItems.map((item, index) => {
     console.log(item)
@@ -56,16 +75,17 @@ export default function Mypasswords({ navigation }) {
       style={styles.myview} >
 
       <Accordian
-      itemid={item.passwords_id}
+        itemid={item.passwords_id}
         title={`${item.web_nameP}`}
         listdata={[item.usernameP, item.passwordP]}
-        onChildClick={clickAlert}
+        onChildEditClick={clickEdit}
+        onChildDeleteClick={clickDelete}
       />
 
     </View>)
   })
 
- 
+
 
   //clear all
   let clearall = () => {
@@ -78,7 +98,7 @@ export default function Mypasswords({ navigation }) {
             // results.rows._array holds all the results.
             console.log(JSON.stringify(results.rows._array));
             console.log('table dropped')
-           
+
           } else {
             // console.log('no results')
             console.log('Cleared All')
@@ -100,7 +120,6 @@ export default function Mypasswords({ navigation }) {
 
         {DisplayData}
 
-        <Button title="Clear All" onPress={()=>clearall()}/>
       </View>
       <View style={{ flex: 0.1 }}>
         <View style={styles.actions}>
@@ -110,7 +129,7 @@ export default function Mypasswords({ navigation }) {
 
 
           <AntDesign name="delete" size={24} color="black"
-            onPress={() => navigation.navigate('delete-password')}
+            onPress={() => clearall()}
             style={styles.icons} />
 
         </View>
