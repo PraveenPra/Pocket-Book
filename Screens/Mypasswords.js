@@ -54,12 +54,14 @@ export default function Mypasswords({ navigation }) {
     return (<View
       key={index}
       style={styles.myview} >
+
       <Accordian
       itemid={item.passwords_id}
-        title={`${item.passwords_id} : ${item.web_nameP}`}
+        title={`${item.web_nameP}`}
         listdata={[item.usernameP, item.passwordP]}
         onChildClick={clickAlert}
       />
+
     </View>)
   })
 
@@ -106,9 +108,6 @@ export default function Mypasswords({ navigation }) {
             onPress={() => navigation.navigate('add-new-password')}
             style={styles.icons} />
 
-          <AntDesign name="edit" size={24} color="black"
-            onPress={() => navigation.navigate('edit-password',{id:2})}
-            style={styles.icons} />
 
           <AntDesign name="delete" size={24} color="black"
             onPress={() => navigation.navigate('delete-password')}

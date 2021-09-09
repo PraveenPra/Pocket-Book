@@ -10,18 +10,14 @@ const db=DatabaseConnection.getConnection()
 export default function EditPassword({route,navigation}) {
 
   const { id } = route.params;
-  // console.log(id)
+  console.log(id)
 
-    let [inputUserId, setInputUserId] = useState('');
+    // let [inputUserId, setInputUserId] = useState('');
   const [web_nameP, setWeb_nameP] = useState('')
   const [usernameP, setUsernameP] = useState('')
   const [passwordP, setPasswordP] = useState('')
   
-  let updateAllStates = (name, contact, address) => {
-    setWeb_nameP(web_nameP);
-    setUsernameP(usernameP);
-    setPasswordP(passwordP);
-  };
+ 
 
   useEffect(() => {
     db.transaction((tx) => {
@@ -33,11 +29,10 @@ export default function EditPassword({route,navigation}) {
                   console.log(results.rows)
                   if (len > 0) {
                     let res = results.rows.item(0);
-                    updateAllStates(
-                      res.web_nameP,
-                      res.usernameP,
-                      res.passwordP
-                    );
+                  
+                    setWeb_nameP(res.web_nameP);
+                    setUsernameP(res.usernameP);
+                    setPasswordP(res.passwordP);
                   } else {
                     alert('failed error');
                     updateAllStates('', '', '');
@@ -76,7 +71,7 @@ const updatepassword=()=>{
   db.transaction(function(tx) {
       tx.executeSql(
         'UPDATE passwords_table set web_nameP=?, usernameP=?, passwordP=? where passwords_id=?',
-        [web_nameP,usernameP, passwordP,inputUserId],
+        [web_nameP,usernameP, passwordP,id],
         (tx, results) => {
           console.log('Results', results.rowsAffected);
           if (results.rowsAffected > 0) {
@@ -110,11 +105,6 @@ useLayoutEffect(() => {
   return (<View style={styles.myview}>
   <Text style={styles.heading}>Edit Password </Text>
   
-  <TextInput style={styles.mytextinput}
-  placeholder="search"
-//   value={web_nameP}
-  onChangeText={(inputUserId)=>setInputUserId(inputUserId)}
-   /> 
 {/* 
 <Button
 title="search"
