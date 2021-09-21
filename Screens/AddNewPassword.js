@@ -110,14 +110,18 @@ const styles = StyleSheet.create({
   },
   myview:{
     padding: 10,
-    border:'2px solid grey',
+    // border:'2px solid grey',
+    borderWidth:1,
+        borderColor:'grey',
     borderRadius:5,
     margin:10,
   },
   mytextinput:{
     padding:10,
     margin:30,
-    border:'2px solid grey',
+    // border:'2px solid grey',
+    borderWidth:1,
+        borderColor:'grey',
     borderRadius:5,
     minWidth: 200,
       

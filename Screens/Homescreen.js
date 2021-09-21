@@ -68,7 +68,9 @@ const styles=StyleSheet.create({
   },
     // morph
     morph: {
-      border:'1px solid #FFE8E8',
+      // border:'1px solid #FFE8E8',
+      borderWidth:1,
+        borderColor:'#FFE8E8',
   },
   morphTop: {
     width:300,

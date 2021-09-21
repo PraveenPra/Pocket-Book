@@ -78,12 +78,18 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     childtxt: {
-        border: "1px solid purple",
+        // border: "1px solid purple",
+        borderWidth:1,
+        borderColor:'purple',
+        // borderStyle:'solid',
         paddingHorizontal: 16,
         paddingVertical: 8,
         color: 'black',
-        fontWeight: 600,
+        fontWeight: '600',
         fontSize: 16,
+    },
+    icons:{
+        color:'white',
     }
 
 });

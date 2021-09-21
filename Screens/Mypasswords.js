@@ -98,11 +98,12 @@ export default function Mypasswords({ navigation }) {
             // results.rows._array holds all the results.
             console.log(JSON.stringify(results.rows._array));
             console.log('table dropped')
-
+            alert("cleared all")
+            return navigation.navigate('Home')
           } else {
             // console.log('no results')
-            console.log('Cleared All')
-            return navigation.navigate('Home')
+            console.log('cant clear')
+            // return navigation.navigate('Home')
           }
         },
         (tx, error) => {
@@ -123,12 +124,12 @@ export default function Mypasswords({ navigation }) {
       </View>
       <View style={{ flex: 0.1 }}>
         <View style={styles.actions}>
-          <Ionicons name="add-circle-outline" size={24} color="black"
+          <Ionicons name="add-circle-outline" size={34} color="black"
             onPress={() => navigation.navigate('add-new-password')}
             style={styles.icons} />
 
 
-          <AntDesign name="delete" size={24} color="black"
+          <AntDesign name="delete" size={34} color="black"
             onPress={() => clearall()}
             style={styles.icons} />
 
@@ -155,8 +156,10 @@ const styles = StyleSheet.create({
   },
   mytext: {
     padding: 5,
-    border: "1px solid grey",
-    fontWeight: 500,
+    // border: "1px solid grey",
+    borderWidth:1,
+    borderColor:'grey',
+    fontWeight: '500',
   },
   title: {
     backgroundColor: 'purple',
@@ -167,22 +170,21 @@ const styles = StyleSheet.create({
   },
   titletxt: {
     color: 'white',
-    fontWeight: 600,
+    fontWeight: '600',
   },
   actions: {
     backgroundColor: 'purple',
-    position: 'fixed', left: 0, right: 0, bottom: -10,
-    flex: 0.1,
-    height: 50,
+    // position: 'fixed', left: 0, right: 0, bottom: -10,
+    flex: 0.9,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
 
   },
   icons: {
-    fontWeight: 600,
+    fontWeight: '600',
     color: 'white',
-    fontSize: 20,
+    // fontSize: 20,
     marginBottom: 8,
   }
 })

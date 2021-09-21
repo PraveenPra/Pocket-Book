@@ -8,7 +8,8 @@ const Mybutton = (props) => {
     style={{
         backgroundColor: props.COLOR||COLORS.default,
         alignItems: 'center',
-        color: '#ffffff',
+        color: 'pink',
+        
         // width:10,
         padding: 10,
         marginTop: 16,
@@ -40,9 +41,9 @@ const styles = StyleSheet.create({
 
 //   },
   text: {
-    color: '#ffffff',
-    fontWeight:600,
-    fontSize:20,
+    color: 'red',
+    fontWeight:'900',
+    fontSize:25,
   },
 });
 
