@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useEffect,useState} from 'react';
-import { StyleSheet, Flatlist,Text, View, Button } from 'react-native';
+import { StyleSheet, Flatlist,Text, View, Button ,ScrollView} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import {DatabaseConnection} from '../database-connection'
@@ -43,7 +43,7 @@ let listItemView = (item) => {
 console.log(flatListItems[0])
 alert(flatListItems[0])
 
-  return (<View>
+  return (<ScrollView>
   <Text style={styles.heading}>My Passwords</Text>
   { /*
    <Flatlist 
@@ -53,7 +53,7 @@ alert(flatListItems[0])
    
    <Button title='add new password' onPress={()=>navigation.navigate ('add-new-password')}/>
    
-  </View>)
+  </ScrollView>)
 }
 
 const styles = StyleSheet.create({
